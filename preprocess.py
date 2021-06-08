@@ -1,9 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
+# Imports
 import pandas as pd
 from sklearn import preprocessing
 import numpy as np
@@ -12,26 +7,15 @@ from sklearn.cluster import AffinityPropagation
 import distance
 import json
 
-
-# In[2]:
-
-
+# Seeds
 r = 4635
 np.random.seed(r)
 
-
-# In[3]:
-
-
-# input data
+# Data
 train = pd.read_csv("data/train.csv")
 test = pd.read_csv("data/test.csv")
 
-
-# In[4]:
-
-
-# convert sex to dummy variable
+# Convert sex to dummy variable
 def sex_to_dummy(df):
     # female:0, male:1
     le = preprocessing.LabelEncoder()
@@ -39,7 +23,7 @@ def sex_to_dummy(df):
     df.Sex = le.transform(df.Sex)
     return df
 
-# encode ticket by tag
+# Encode ticket by tag
 def encode_ticket(df, datasplit):
     if datasplit == 'train':
         # extract set of recurring tags from ticket values
@@ -66,7 +50,7 @@ def encode_ticket(df, datasplit):
             cluster = np.unique(tags[np.nonzero(affprop.labels_==cluster_id)])
             cluster_str = ", ".join(cluster)
             cluster_dict[exemplar] = cluster_str.split(', ')
-#             print(" - *%s:* %s" % (exemplar, cluster_str)) 
+            # print(" - *%s:* %s" % (exemplar, cluster_str)) 
         
         # save clusters for use on test data
         with open('ticketClusters.json', 'w') as fp:
@@ -94,6 +78,7 @@ def encode_ticket(df, datasplit):
     df = df.drop(columns=['Ticket'])
     return df
 
+# Encode embarked
 def encode_embarked(df, datasplit, encoding):
     # encode based on chosen method of encoding
     if encoding == 'travel_dist':
@@ -113,7 +98,7 @@ def encode_embarked(df, datasplit, encoding):
     df = df.fillna(df.median())
     return df
 
-# run all preprocessing functions
+# Run all preprocessing functions
 def main(df, datasplit):
     # count nulls by column before replacing
     print(" \nTotal missing values by column in the data :\n\n", df.isnull().sum())
@@ -128,19 +113,11 @@ def main(df, datasplit):
     df = encode_embarked(df, datasplit, 'embark_order')
     return df
 
-
-# In[5]:
-
-
-# run preprocessing
+# Run preprocessing
 train = main(train, 'train')
 test = main(test, 'test')
 
-
-# In[6]:
-
-
-# output data
+# Output data
 train.to_csv("data/train_clean.csv", index=False)
 test.to_csv("data/test_clean.csv", index=False)
 

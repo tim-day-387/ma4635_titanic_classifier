@@ -1,3 +1,4 @@
+# Imports
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -84,6 +85,7 @@ def plot_scores(results, num_pc_list):
     plt.savefig("model_evaluation/comparison.png", dpi=160, bbox_inches='tight')
     plt.close()
 
+# Main
 def main():
     # Import Data
     data = pd.read_csv("data/train_clean.csv").sample(frac=1).reset_index(drop=True)
@@ -152,6 +154,7 @@ def main():
     # Plot Results
     plot_scores(results, num_pc_list)
 
+# Set seed and run main
 if __name__ == "__main__":
     r = 4635 # random seed
     np.random.seed(r)

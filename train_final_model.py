@@ -1,3 +1,4 @@
+# Imports
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -34,6 +35,7 @@ def pca(X, num_pc):
     X = pd.DataFrame(X)
     return X
 
+# Main
 def main():
     # Import Data
     data = pd.read_csv("data/train_clean.csv").sample(frac=1).reset_index(drop=True)
@@ -52,6 +54,7 @@ def main():
     # Train and Save Final Model
     train(X_selected, y, classifier, params, num_pc)
 
+# Set seed and run main
 if __name__ == "__main__":
     r = 4635 # random seed
     np.random.seed(r)
