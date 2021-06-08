@@ -30,7 +30,7 @@ def main():
 
     # Compile Results
     results = pd.DataFrame(list(zip(ids, prediction)), columns=["PassengerId", "Survived"])
-    results.to_csv('submission_' + filename + '.csv', index=False)
+    results.to_csv('submissions/submission_' + filename + '.csv', index=False)
 
 if __name__ == "__main__":
     r = 4635 # random seed
