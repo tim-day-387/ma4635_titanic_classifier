@@ -9,7 +9,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import preprocessing
 import joblib
-import train_final_model
+import trainFinalModel
 
 def main():
     # Import Test Data
