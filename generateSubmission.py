@@ -23,7 +23,7 @@ def main():
     X_normalized = pd.DataFrame(X_normalized) # to dataframe
 
     # dimensionality reduction
-    X_selected = train_final_model.pca(X_normalized, 3)
+    X_selected = trainFinalModel.pca(X_normalized, 3)
 
     # make predictions
     clf = joblib.load('trained_models/' + filename + '.pkl')
